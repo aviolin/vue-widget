@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Widget Dev App</title>
+    <script>
+      (function(w,d,s,o,f,js,fjs){w[o]=w[o]||function(){(w[o].q=w[o].q||[]).push(arguments)};
+        js=d.createElement(s),fjs=d.getElementsByTagName(s)[0];
+        js.id=o;js.src=f;js.async=1;fjs.parentNode.insertBefore(js,fjs);
+      }(window, document, 'script', '_hw', './dist/assets/widget.js'));
+      _hw('init', { debug: true, elementId: 'MyWidget' });
+    </script>
+  </head>
+  <body>
+    <h1>Widget test app</h1>
+    <h2>Introduction paragraph</h2>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur optio et ipsa excepturi iusto. Ducimus eius optio temporibus corporis repellat tenetur excepturi architecto laboriosam, sed, sit ratione numquam, doloribus facilis quam similique ullam dignissimos id repudiandae expedita? Quam sed ducimus, vel tenetur hic natus, optio facilis, architecto molestias ex repellendus.</p>
+    <h2>Now here's the embedded element wrapper: </h2>
+
+    <div id="MyWidget"></div>
+
+    <h2>Here's some stuff after the embedded script tag</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae perferendis tenetur sint, sit sunt quaerat, dicta error voluptate nam aperiam aliquid nesciunt, pariatur debitis. Voluptatem sit totam alias quaerat vitae aspernatur neque recusandae possimus qui non quo distinctio eligendi ab quibusdam, consectetur eos aperiam. Quos accusamus odio tenetur rerum at.</p>
+  </body>
+</html>
