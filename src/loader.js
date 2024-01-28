@@ -57,10 +57,17 @@ export default (
                     if (!wrappingElement) {
                         throw new Error(`Failed to find element with id [${loadedObject.elementId}]`);
                     }
+
                 }
+
+                // create shadow dom host element
+                if (loadedObject.shadow) {
+                    wrappingElement = wrappingElement.attachShadow({ mode: loadedObject.shadowMode ?? 'open' });
+                }
+                
                 targetElement = wrappingElement.appendChild(win.document.createElement('div'));
                 targetElement.setAttribute('id', `widget-${instanceName}`);
-                render(`#widget-${instanceName}`, loadedObject);
+                render(targetElement, loadedObject);
 
                 // store indication that widget instance was initialized
                 win[`loaded-${instanceName}`] = true;

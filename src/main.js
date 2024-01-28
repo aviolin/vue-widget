@@ -11,7 +11,8 @@ import App from './App.vue'
  */
 const defaultConfig = {
     debug: false,
-    text: 'Hello World',
+    shadow: true,
+    shadowMode: 'open',
 };
 
 // main entry point - calls loader and renders app
@@ -19,9 +20,9 @@ loader(
     window,
     defaultConfig,
     window.document.currentScript,
-    (elementId, config) => {
+    (ele, config) => {
         const app = createApp(App)
         app.use(createPinia())
-        app.mount(elementId) // replace #app with el
+        app.mount(ele)
     }
 );

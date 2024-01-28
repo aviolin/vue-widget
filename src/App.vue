@@ -14,6 +14,6 @@ const counterStore = useCounterStore();
       </div>
     </header>
     <button @click="counterStore.increment">Click me</button>
-    You clicked the button {{ counterStore.count }} times.
+    <p>You clicked the button {{ counterStore.count }} times.</p>
   </main>
 </template>
