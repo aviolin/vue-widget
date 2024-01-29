@@ -1,4 +1,4 @@
-export const DEFAULT_NAME = '_hw';
+export const DEFAULT_NAME = '_mywidget';
 
 /**
  * Loads widget instance.
@@ -30,8 +30,8 @@ export default (
             + `This means you have multiple instances with same identifier (e.g. '${DEFAULT_NAME}')`);
     }
 
-    // this will be a root element of the widget instance
-    let targetElement;
+    // this will be the root element of the vue app
+    let vueContainer;
 
     // iterate over all methods that were called up until now
     for (let i = 0; i < loaderObject.q.length; i++) {
@@ -50,30 +50,53 @@ export default (
                     console.log(`Starting widget [${instanceName}]`, loadedObject);
                 }
 
-                // the actual rendering of the widget
+                // find wrapping element
                 let wrappingElement = win.document.body;
                 if (loadedObject.elementId) {
                     wrappingElement = win.document.getElementById(loadedObject.elementId);
                     if (!wrappingElement) {
                         throw new Error(`Failed to find element with id [${loadedObject.elementId}]`);
                     }
-
                 }
 
                 // create shadow dom host element
                 if (loadedObject.shadow) {
                     wrappingElement = wrappingElement.attachShadow({ mode: loadedObject.shadowMode ?? 'open' });
                 }
-                
-                targetElement = wrappingElement.appendChild(win.document.createElement('div'));
-                targetElement.setAttribute('id', `widget-${instanceName}`);
-                render(targetElement, loadedObject);
+
+                if (loadedObject.stylesheets) {
+                    /**
+                     * Adds a link tag with the given stylesheet to the wrapper element
+                     * 
+                     * @param {string} href 
+                     * @param {HTMLElement} wrapper
+                     */
+                    const addStylesheet = (href, wrapper) => {
+                        const linkTag = win.document.createElement('link');
+                        linkTag.setAttribute('rel', 'stylesheet');
+                        linkTag.setAttribute('href', href);
+                        wrapper.prepend(linkTag);
+                    }
+
+                    if (typeof loadedObject.stylesheets === 'string') {
+                        loadedObject.stylesheets = [loadedObject.stylesheets];
+                    }
+
+                    for (let i = 0; i < loadedObject.stylesheets.length; i++) {
+                        addStylesheet(loadedObject.stylesheets[i], wrappingElement);
+                    }
+                }
+
+                // create and set up vue app container
+                vueContainer = wrappingElement.appendChild(win.document.createElement('div'));
+                vueContainer.setAttribute('id', `${instanceName}`);
+                render(vueContainer, loadedObject);
 
                 // store indication that widget instance was initialized
                 win[`loaded-${instanceName}`] = true;
                 break;
             // TODO: here you can handle additional async interactions
-            // with the widget from page (e.q. `_hw('refreshStats')`)
+            // with the widget from page (e.q. `_mywidget('refreshStats')`)
             default:
                 console.warn(`Unsupported method [${methodName}]`, item[1]);
         }
@@ -84,7 +107,7 @@ export default (
     win[instanceName] = (method, ...args) => {
         switch (method) {
             case 'event': {
-                targetElement?.dispatchEvent(
+                vueContainer?.dispatchEvent(
                     new CustomEvent('widget-event', { detail: { name: args?.[0] } }));
                 break;
             }

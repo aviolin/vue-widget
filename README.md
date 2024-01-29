@@ -29,8 +29,8 @@ Embed this script tag on the page to display the widget. In production, replace 
     (function(w,d,s,o,f,js,fjs){w[o]=w[o]||function(){(w[o].q=w[o].q||[]).push(arguments)};
     js=d.createElement(s),fjs=d.getElementsByTagName(s)[0];
     js.id=o;js.src=f;js.async=1;fjs.parentNode.insertBefore(js,fjs);
-    }(window, document, 'script', '_hw', './dist/assets/widget.js'));
-    _hw('init', { debug: true, elementId: 'MyWidget' });
+    }(window, document, 'script', '_mywidget', './dist/assets/widget.js', './dist/assets/widget.css'));
+    _mywidget('init', { debug: true, elementId: 'MyWidget' });
 </script>
 ```
 

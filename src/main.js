@@ -13,6 +13,7 @@ const defaultConfig = {
     debug: false,
     shadow: true,
     shadowMode: 'open',
+    stylesheets: null,
 };
 
 // main entry point - calls loader and renders app

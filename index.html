@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Widget Dev App</title>
     <script>
-      (function(w,d,s,o,f,js,fjs){w[o]=w[o]||function(){(w[o].q=w[o].q||[]).push(arguments)};
+      (function(w,d,s,o,f,lf,js,fjs){w[o]=w[o]||function(){(w[o].q=w[o].q||[]).push(arguments)};
         js=d.createElement(s),fjs=d.getElementsByTagName(s)[0];
         js.id=o;js.src=f;js.async=1;fjs.parentNode.insertBefore(js,fjs);
-      }(window, document, 'script', '_hw', './dist/assets/widget.js'));
-      _hw('init', { debug: true, elementId: 'MyWidget' });
+        l=d.createElement('link');l.rel='preload';l.as='style';l.href=lf;fjs.parentNode.insertBefore(l,fjs);
+      }(window, document, 'script', '_mywidget', './dist/assets/widget.js', './dist/assets/widget.css'));
+      _mywidget('init', { debug: true, elementId: 'MyWidget', stylesheets: './dist/assets/widget.css' });
     </script>
   </head>
   <body>
