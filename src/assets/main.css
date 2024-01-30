@@ -1,0 +1,9 @@
+.app-root {
+    --widget-col-primary: #389793;
+    background: #345; 
+    color: #fff; 
+}
+
+main {
+    padding: 1rem;
+}

@@ -13,19 +13,29 @@
       }(window, document, 'script', '_mywidget', './dist/assets/widget.js', './dist/assets/widget.css'));
       _mywidget('init', { debug: true, elementId: 'MyWidget', stylesheets: './dist/assets/widget.css' });
     </script>
+    <style>p{color:blue}</style>
   </head>
   <body>
-
-    <style>p{color:blue}</style>
 
     <h1>Widget test app</h1>
     <h2>Introduction paragraph</h2>
     <p>P tags are set to be blue. P tags inside the widget are isolated from CSS via the shadow dom.</p>
-    <h2>Now here's the embedded element wrapper: </h2>
+    <h2>Here's the embedded element wrapper: </h2>
 
     <div id="MyWidget"></div>
 
-    <h2>Here's some stuff after the embedded script tag</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae perferendis tenetur sint, sit sunt quaerat, dicta error voluptate nam aperiam aliquid nesciunt, pariatur debitis. Voluptatem sit totam alias quaerat vitae aspernatur neque recusandae possimus qui non quo distinctio eligendi ab quibusdam, consectetur eos aperiam. Quos accusamus odio tenetur rerum at.</p>
+    <h2>Here's some stuff after the embedded script tag.</h2>
+    <p>Try changing the widget background color.</p>
+    <form id="testForm">
+      <label for="name">Background Color</label>
+      <input type="text" id="backgroundColor" name="background-color" placeholder="#345" value="#345">
+      <input type="submit" value="Apply">
+    </form>
+    <script>
+      testForm?.addEventListener('submit', function(e) {
+        e.preventDefault();
+        _mywidget('update', { 'background-color': testForm.querySelector('#backgroundColor').value });
+      });
+    </script>
   </body>
 </html>

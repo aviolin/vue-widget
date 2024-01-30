@@ -1,4 +1,4 @@
-// import './assets/main.css'
+import './assets/main.css'
 import loader from './loader'
 
 import { createApp } from 'vue'
@@ -12,7 +12,7 @@ import App from './App.vue'
 const defaultConfig = {
     debug: false,
     shadow: true,
-    shadowMode: 'open',
+    shadowMode: 'closed',
     stylesheets: null,
 };
 
@@ -24,6 +24,7 @@ loader(
     (ele, config) => {
         const app = createApp(App)
         app.use(createPinia())
+        app.provide('appRoot', ele)
         app.mount(ele)
     }
 );

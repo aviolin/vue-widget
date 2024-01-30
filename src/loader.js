@@ -90,7 +90,12 @@ export default (
                 // create and set up vue app container
                 vueContainer = wrappingElement.appendChild(win.document.createElement('div'));
                 vueContainer.setAttribute('id', `${instanceName}`);
+                vueContainer.setAttribute('class', `app-root`);
                 render(vueContainer, loadedObject);
+
+                // vueContainer.addEventListener('widget-event', (e) => {
+                //     console.log(e)
+                // })
 
                 // store indication that widget instance was initialized
                 win[`loaded-${instanceName}`] = true;
@@ -107,8 +112,11 @@ export default (
     win[instanceName] = (method, ...args) => {
         switch (method) {
             case 'event': {
-                vueContainer?.dispatchEvent(
-                    new CustomEvent('widget-event', { detail: { name: args?.[0] } }));
+                vueContainer?.dispatchEvent(new CustomEvent('widget-event', { detail: { name: args?.[0] } }));
+                break;
+            }
+            case 'update': {
+                vueContainer?.dispatchEvent(new CustomEvent('widget-update', { detail: args }));
                 break;
             }
             default:
